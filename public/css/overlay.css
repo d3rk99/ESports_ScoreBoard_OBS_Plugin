@@ -1,0 +1,40 @@
+:root {
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: transparent;
+}
+
+.overlay {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+#team-logo {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+}
+
+#team-name {
+  font-size: 42px;
+  line-height: 1;
+  font-weight: 800;
+  -webkit-text-stroke-width: 2px;
+}
+
+#team-score {
+  min-width: 44px;
+  text-align: center;
+  font-size: 52px;
+  line-height: 1;
+  color: #ffffff;
+  font-weight: 800;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}

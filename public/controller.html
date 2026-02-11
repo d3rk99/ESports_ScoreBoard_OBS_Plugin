@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Esports Scoreboard Controller</title>
+    <link rel="stylesheet" href="/css/controller.css" />
+  </head>
+  <body>
+    <main class="layout">
+      <h1>Esports Scoreboard OBS Tool</h1>
+
+      <section class="panel grid-2">
+        <div>
+          <h2>Team 1</h2>
+          <label>Name <input id="team1-name" type="text" maxlength="48" /></label>
+          <label>Logo <select id="team1-logo"></select></label>
+          <label>Font Color <input id="team1-fontColor" type="color" /></label>
+          <label>Trim Color <input id="team1-trimColor" type="color" /></label>
+          <div class="score-row">
+            <button data-score="team1" data-delta="-1">-1</button>
+            <span id="team1-score">0</span>
+            <button data-score="team1" data-delta="1">+1</button>
+          </div>
+        </div>
+
+        <div>
+          <h2>Team 2</h2>
+          <label>Name <input id="team2-name" type="text" maxlength="48" /></label>
+          <label>Logo <select id="team2-logo"></select></label>
+          <label>Font Color <input id="team2-fontColor" type="color" /></label>
+          <label>Trim Color <input id="team2-trimColor" type="color" /></label>
+          <div class="score-row">
+            <button data-score="team2" data-delta="-1">-1</button>
+            <span id="team2-score">0</span>
+            <button data-score="team2" data-delta="1">+1</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel actions">
+        <button id="reset-scores">Reset Scores</button>
+      </section>
+
+      <section class="panel">
+        <h2>OBS WebSocket v5</h2>
+        <div class="grid-3">
+          <label>Host <input id="obs-host" type="text" /></label>
+          <label>Port <input id="obs-port" type="number" min="1" max="65535" /></label>
+          <label>Password <input id="obs-password" type="password" autocomplete="off" /></label>
+        </div>
+        <label class="inline"><input id="obs-remember-password" type="checkbox" /> Store password in local state.json</label>
+
+        <h3>Source Mapping</h3>
+        <div class="grid-2">
+          <label>Team 1 Name Source <input id="map-team1-name" type="text" /></label>
+          <label>Team 2 Name Source <input id="map-team2-name" type="text" /></label>
+          <label>Team 1 Score Source <input id="map-team1-score" type="text" /></label>
+          <label>Team 2 Score Source <input id="map-team2-score" type="text" /></label>
+          <label>Team 1 Logo Source <input id="map-team1-logo" type="text" /></label>
+          <label>Team 2 Logo Source <input id="map-team2-logo" type="text" /></label>
+        </div>
+
+        <div class="actions">
+          <button id="obs-connect">Connect</button>
+          <button id="obs-disconnect">Disconnect</button>
+        </div>
+        <p id="obs-status">Disconnected</p>
+        <p id="error-status"></p>
+      </section>
+    </main>
+
+    <script type="module" src="/js/controller.js"></script>
+  </body>
+</html>

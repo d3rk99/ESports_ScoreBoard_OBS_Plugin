@@ -98,6 +98,28 @@ On update, the tool sends:
 
 If a source name is missing/invalid, the controller displays a status error while keeping overlays functional.
 
+
+## Optional OBS Python script (native source sync)
+
+If you prefer OBS-side polling (similar to the Overwatch hero bans workflow), use:
+
+- `obs_scripts/esports_scoreboard.py`
+
+In OBS:
+1. Open `Tools -> Scripts`.
+2. Click `+` and choose `obs_scripts/esports_scoreboard.py`.
+3. Configure:
+   - `State API URL` (default: `http://127.0.0.1:3000/api/state`)
+   - `Refresh interval (ms)`
+   - `Logos directory (absolute path)` (example: `/workspace/ESports_ScoreBoard_OBS_Plugin/assets/logos`)
+   - Source name mappings for team names, scores, and logos
+4. Click `Refresh now` to force an immediate sync.
+
+Notes:
+- The script updates OBS Text/Image sources directly from API state.
+- If logo is `None` (empty), mapped image source file is cleared.
+- This is optional; the built-in Node OBS WebSocket integration still works.
+
 ## Persistence details
 
 State is auto-saved to `data/state.json` on every change. It includes:

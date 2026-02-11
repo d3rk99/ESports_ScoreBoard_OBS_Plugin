@@ -118,6 +118,7 @@ In OBS:
 Notes:
 - The script updates OBS Text/Image sources directly from API state.
 - If logo is `None` (empty), mapped image source file is cleared.
+- Requires OBS' embedded Python runtime (Python 3.6 in many OBS installs) and imports `obspython` when loaded from OBS.
 - This is optional; the built-in Node OBS WebSocket integration still works.
 
 ## Persistence details

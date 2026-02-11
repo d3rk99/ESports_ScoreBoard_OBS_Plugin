@@ -8,8 +8,32 @@
 import json
 import urllib.request
 import urllib.error
-import obs
 from pathlib import Path
+
+OBS_AVAILABLE = True
+
+try:
+    import obspython as obs
+except Exception:
+    try:
+        import obs  # type: ignore
+    except Exception:
+        OBS_AVAILABLE = False
+
+        class _OBSStub(object):
+            LOG_INFO = 300
+            LOG_WARNING = 200
+            OBS_TEXT_DEFAULT = 0
+
+            def script_log(self, *args, **kwargs):
+                return None
+
+            def __getattr__(self, _name):
+                def _noop(*_args, **_kwargs):
+                    return None
+                return _noop
+
+        obs = _OBSStub()
 
 SCRIPT_DESCRIPTION = "Syncs OBS text/image sources from Esports_Scoreboard_OBSTool /api/state"
 
@@ -28,6 +52,8 @@ settings_cache = {
 
 
 def script_description():
+    if not OBS_AVAILABLE:
+        return SCRIPT_DESCRIPTION + "\n\nWarning: obspython module not found. This script must be run by OBS (Tools -> Scripts)."
     return SCRIPT_DESCRIPTION
 
 
@@ -162,6 +188,9 @@ def script_defaults(settings):
 
 
 def script_update(settings):
+    if not OBS_AVAILABLE:
+        return
+
     _read_settings(settings)
     obs.timer_remove(tick_sync)
     obs.timer_add(tick_sync, max(100, settings_cache["refresh_ms"]))
@@ -169,11 +198,18 @@ def script_update(settings):
 
 
 def script_load(settings):
+    if not OBS_AVAILABLE:
+        _log_error("obspython module not found. Load this file inside OBS Script UI, not standalone Python.")
+        return
+
     _read_settings(settings)
     obs.timer_add(tick_sync, max(100, settings_cache["refresh_ms"]))
     _log("Loaded")
 
 
 def script_unload():
+    if not OBS_AVAILABLE:
+        return
+
     obs.timer_remove(tick_sync)
     _log("Unloaded")
